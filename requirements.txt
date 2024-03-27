@@ -28,4 +28,3 @@ Werkzeug==3.0.1
 zipp==3.18.1
 gunicorn
 pandas
-os
