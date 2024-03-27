@@ -5,7 +5,7 @@ import dash_table
 import pandas as pd
 
 # load measure overview
-df = pd.read_excel("\data\guts-measure-overview_gh.xlsx", index_col=0) 
+df = pd.read_excel(r"data\guts-measure-overview_gh.xlsx", index_col=0)
 
 # get unique data types
 unique_data_types = df['data_type'].unique()
