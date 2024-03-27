@@ -3,9 +3,11 @@ from dash import dcc, html
 from dash.dependencies import Input, Output
 import dash_table
 import pandas as pd
+import os
 
 # load measure overview
-df = pd.read_excel(r"data\guts-measure-overview_gh.xlsx", index_col=0)
+file_path = os.path.join("data", "guts-measure-overview_gh.xlsx")
+df = pd.read_excel(file_path, index_col=0)
 
 # get unique data types
 unique_data_types = df['data_type'].unique()
