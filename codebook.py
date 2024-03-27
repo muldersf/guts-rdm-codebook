@@ -5,7 +5,7 @@ import dash_table
 import pandas as pd
 
 # load measure overview
-df = pd.read_excel("guts-measure-overview_gh.xlsx", index_col=0) 
+df = pd.read_excel("\data\guts-measure-overview_gh.xlsx", index_col=0) 
 
 # get unique data types
 unique_data_types = df['data_type'].unique()
@@ -13,6 +13,8 @@ unique_cohorts = df['cohort'].unique()
 
 # create app
 app = dash.Dash(__name__)
+
+server = app.server
 
 # create layout app
 app.layout = html.Div([
@@ -155,4 +157,4 @@ def update_table(selected_data_type, selected_cohort, search_value):
 
 # run app
 if __name__ == '__main__':
-    app.run_server(port = 6800, debug=False)
+    app.run(debug=True)
