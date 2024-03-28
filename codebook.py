@@ -11,7 +11,7 @@ df = pd.read_excel(file_path, index_col=0)
 
 # get unique data types
 unique_data_types = df['data_type'].unique()
-unique_cohorts = df['cohort'].unique()
+unique_cohorts = ['A', 'B', 'C', 'D']
 
 # create app
 app = dash.Dash(__name__)
@@ -24,48 +24,44 @@ app.layout = html.Div([
     #html.H1("GUTS measures", style={'font-family': 'sans-serif'}),
 
     html.Div([
-    # create dropdown menu 1
-    html.Div([
-        html.P("Choose your data type:", style={'margin-top': '10px'}),
-        dcc.Dropdown(
-            id='data-type-dropdown',
-            options=[{'label': 'all data types', 'value': 'all'}] +
-                    [{'label': data_type, 'value': data_type} for data_type in unique_data_types],
-            value='all',  
-            multi=False,
-            style={'width': '150px', 'margin-left': '2px', 'font-family': 'sans-serif'}
-        ),
-    ], style={'display': 'flex', 'flexDirection': 'row', 'font-family': 'sans-serif'}),
+        html.Div([
+            # create checkbox for cohorts
+            html.Div([
+                html.P("Choose cohort:", style={'font-weight': 'bold','height': '17px','paddingLeft': '10px', 'paddingTop': '5px', 'paddingBottom': '5px', 'margin-top': '10px','borderRadius': '5px', 'backgroundColor': 'gray'}),
+                dcc.Checklist(
+                    id='cohort-checkboxes',
+                    options=[
+                        {'label': 'all cohorts', 'value': 'all'},
+                        {'label': 'only overlapping cohorts', 'value': 'overlapping'}
+                    ] + [{'label': cohort, 'value': cohort} for cohort in unique_cohorts],
+                    style={'font-family': 'sans-serif', 'paddingBottom': '10px'}
+                ),
+            ], style={'margin-left': '10px','display': 'flex', 'flexDirection': 'column', 'font-family': 'sans-serif'}),
 
-    # create dropdown menu 2
-    html.Div([
-        html.P("Choose your cohort:", style={'margin-top': '10px'}),
-        dcc.Dropdown(
-            id='cohort-dropdown',
-            options=[
-            {'label': 'A', 'value': 'A'},
-            {'label': 'B', 'value': 'B'},
-            {'label': 'C', 'value': 'C'},
-            {'label': 'D', 'value': 'D'},
-            {'label': 'only overlapping cohorts', 'value': 'overlapping'},
-            {'label': 'all cohorts', 'value': 'all'}
-            ],
-            value=None,  
-            multi=False,
-            style={'width': '150px', 'margin-left': '2px', 'font-family': 'sans-serif'}
-        ),
-    ], style={'display': 'flex', 'flexDirection': 'row', 'font-family': 'sans-serif'}),
+            # create dropdown menu 1
+            html.Div([
+                html.P("Choose data type:", style={'font-weight': 'bold','height':'17px','paddingLeft': '10px', 'paddingTop': '5px', 'paddingBottom': '5px', 'margin-top': '10px','borderRadius': '5px', 'backgroundColor': 'gray'}),
+                dcc.Dropdown(
+                    id='data-type-dropdown',
+                    options=[{'label': 'all data types', 'value': 'all'}] +
+                            [{'label': data_type, 'value': data_type} for data_type in unique_data_types],
+                    value='all',  
+                    multi=False,
+                    style={'width': '150px', 'margin-left': '2px', 'font-family': 'sans-serif'}
+                ),
+            ], style={'display': 'flex', 'flexDirection': 'column', 'margin-left': '15px', 'margin-right': '15px', 'font-family': 'sans-serif'}),
 
-    # create search bar for measure
-    html.Div([
-        html.P("Search by measure name:", style={'margin-top': '10px'}),
-        dcc.Input(
-            id='measure-search',
-            type='text',
-            placeholder='Enter measure name...',
-            style={'width': '180px', 'height': '30px', 'margin-left': '2px', 'margin-bottom': '2px', 'font-family': 'sans-serif', 'borderRadius': '5px'}
-        ),
-    ], style={'display': 'flex', 'flexDirection': 'row', 'paddingBottom': '10px', 'font-family': 'sans-serif'}),
+            # create search bar for measure
+            html.Div([
+                html.P("Search by measure name:", style={'font-weight': 'bold','height':'17px','paddingLeft': '10px', 'paddingTop': '5px', 'paddingBottom': '5px', 'margin-top': '10px','borderRadius': '5px', 'backgroundColor': 'gray', 'width': '200px'}),
+                dcc.Input(
+                    id='measure-search',
+                    type='text',
+                    placeholder='Enter measure name...',
+                    style={'margin-top': '1px','height': '30px', 'margin-left': '2px', 'margin-bottom': '2px', 'font-family': 'sans-serif', 'borderRadius': '5px'}
+                ),
+            ], style={'display': 'flex', 'flexDirection': 'Column', 'paddingBottom': '10px', 'font-family': 'sans-serif'}),
+        ], style = {'fontSize': '14px','fontFamily': 'sans-serif','paddingBottom': '10px','marginBottom':'10px','display': 'flex', 'flexDirection': 'row', 'backgroundColor': 'rgb(211,211,211)', 'width': '680px', 'borderRadius': '5px', 'boxShadow': '0px 0px 10px 0px rgba(0, 0, 0, 0.1)'}),
     
     
     # create default data table and style it
@@ -120,7 +116,7 @@ app.layout = html.Div([
     ],
         style_table={'height': '500px', 
                      'overflowY': 'auto',
-                     'width': '800px',
+                     'width': '680px',
                      'boxShadow': '0px 0px 10px 0px rgba(0, 0, 0, 0.1)',
                      'borderRadius': '10px' },
     ),
@@ -131,26 +127,26 @@ app.layout = html.Div([
 @app.callback(
     Output('table', 'data'),
     [Input('data-type-dropdown', 'value'),
-     Input('cohort-dropdown', 'value'),
+     Input('cohort-checkboxes', 'value'),
      Input('measure-search', 'value')]
 )
 # make function to update table
 def update_table(selected_data_type, selected_cohort, search_value):
     filtered_df = df
+    print("Selected data type:", selected_data_type)
+    print("Selected cohort:", selected_cohort)
+    print("Search value:", search_value)
     
     # filter by data type if selected
     if selected_data_type and selected_data_type != 'all':
         filtered_df = filtered_df[filtered_df['data_type'] == selected_data_type]
-
-    # filter by cohort if selected
-    if selected_cohort and selected_cohort != 'all':
-        if selected_cohort == 'overlapping':
-            # Select rows where 'cohort' column contains more than one letter
+    
+    if selected_cohort and 'all' not in selected_cohort:
+        if 'overlapping' in selected_cohort:
             filtered_df = filtered_df[filtered_df['cohort'].apply(lambda x: len(x) > 1)]
         else:
-            # Select rows where 'cohort' column exactly matches selected cohort
-            filtered_df = filtered_df[filtered_df['cohort'].str.contains(selected_cohort)]
-    
+            filtered_df = filtered_df[filtered_df['cohort'].str.contains('|'.join(selected_cohort))]
+
     # filter by measure name using search value
     if search_value:
         filtered_df = filtered_df[filtered_df['long_name'].str.contains(search_value, case=False)]
