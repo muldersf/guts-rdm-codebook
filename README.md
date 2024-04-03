@@ -1,2 +1,2 @@
 # rdm-codebook
-rdm-codebook-test
+rdm-codebook
