@@ -25,12 +25,7 @@ jobs:
           WEBDAV_PASSWORD: ${{ secrets.webdav_password }}
         run: |
           echo "Fetching metadata"
-          curl -u "$WEBDAV_USERNAME":"$WEBDAV_PASSWORD" "${DATA_URL_BASE}guts-measure-overview.json" -o guts-measure-overview.json
-      - name: Archive metadata
-        uses: actions/upload-artifact@v2
-        with:
-          name: metadata
-          path: guts-measure-overview.json
+          curl -u "$WEBDAV_USERNAME":"$WEBDAV_PASSWORD" "${DATA_URL_BASE}guts-measure-overview.json" -o data/guts-measure-overview.json
       - name: Commit if modified
         run: |
           if [[ `git status --porcelain` ]]; then
