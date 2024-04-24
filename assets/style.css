@@ -1,0 +1,102 @@
+:root {
+    --color-cohort-a: #86af7e; /* Green */
+    --color-cohort-b: #b18fbb; /* Purple */
+    --color-cohort-c: #7193ab; /* Blue */
+    --color-cohort-d: #d4a588; /* Orange */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.filters {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: row;
+    background-color: #f0efef;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
+}
+
+.filter {
+    margin-bottom: 10px;
+    padding: 10px;
+    
+}
+
+.top-label {
+    background-color: #c9c8c8;
+    border-radius: 5px;
+    padding: 3px;
+    margin-bottom: 10px;
+}
+.filter label {
+    display: block;
+    font-weight: bold;   
+}
+
+.cohorts .checkbox-container {
+    display: block;
+    margin-bottom: 5px; /
+}
+
+.cohorts .checkbox-container .checkbox-label {
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: normal; 
+}
+
+.cohorts .checkbox-container input[type="checkbox"] {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.table-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+}
+.data-table {
+    width: 100%;
+    border-radius: 10px;
+    border-collapse: separate; 
+    border-spacing: 0;
+}
+
+.data-table td:first-child {
+    width: 350px; 
+}
+
+.data-table th {
+    background-color: #c9c8c8; 
+}
+
+.data-table th, 
+.data-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid transparent;
+}
+
+.data-table td {
+    padding: 10px;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #e0e0e0; 
+}
+
+.data-table tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+

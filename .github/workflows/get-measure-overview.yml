@@ -1,0 +1,44 @@
+name: get_protocols
+
+on: workflow_dispatch
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up environment
+        run: |
+          git config --global user.email "s.f.mulder@essb.eur.nl"
+          git config --global user.name "muldersf"
+      - name: Checkout main
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Fetch metadata
+        env:
+          DATA_URL_BASE: ${{ secrets.DATA_URL_BASE }}
+          WEBDAV_USERNAME: ${{ secrets.webdav_username }}
+          WEBDAV_PASSWORD: ${{ secrets.webdav_password }}
+        run: |
+          echo "Fetching metadata"
+          curl -u "$WEBDAV_USERNAME":"$WEBDAV_PASSWORD" "${DATA_URL_BASE}guts-measure-overview.json" -o guts-measure-overview.json
+      - name: Archive metadata
+        uses: actions/upload-artifact@v2
+        with:
+          name: metadata
+          path: guts-measure-overview.json
+      - name: Commit if modified
+        run: |
+          if [[ `git status --porcelain` ]]; then
+            # Changes
+            git add --all
+            git commit -m "Update measure overview"
+            git push origin main
+          else
+            # No changes
+            echo "No edits were made to metadata; therefore no changes were committed"
+          fi

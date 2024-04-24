@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUTS measures</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="filters">
+            <div class="filter">
+                <label for="cohort-checkboxes" class = "top-label">Choose cohort:</label>
+                <div class = cohorts id="cohort-checkboxes">
+                    <!-- Checkboxes will be dynamically generated here -->
+                </div>
+            </div> 
+            <div class="filter">
+                <label for="data-type-dropdown" class = "top-label">Choose data type:</label>
+                <select id="data-type-dropdown">
+                    <!-- Options will be dynamically generated here -->
+                </select>
+            </div>     
+            <div class="filter">
+                <label for="measure-search" class = "top-label">Search by measure name:</label>
+                <input type="text" id="measure-search" placeholder="Enter measure name...">
+            </div>
+        </div>
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Measure</th>
+                        <th>Short name</th>
+                        <th>Data type</th>
+                        <th>Cohort</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Table rows will be added dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@5"></script>
+    <script src="assets/app.js" defer></script>
+</body>
+</html>
