@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function fetchData() {
         // Fetch data from server
-        fetch('data/guts-measure-overview.json') 
+        fetch('data/guts-measure-overview_cropped.json') 
             .then(response => response.json())
             .then(data => {
 
