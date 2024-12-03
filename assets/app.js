@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
             { id: 'cohort-b', label: 'cohort b', value: 'B' },
             { id: 'cohort-c', label: 'cohort c', value: 'C' },
             { id: 'cohort-d', label: 'cohort d', value: 'D' },
-            { id: 'overlapping-cohorts', label: 'overlapping cohorts', value: 'overlapping' }
+            { id: 'overlapping-cohorts', label: 'cohort overlap', value: 'overlapping' }
         ];
 
         // Clear any existing checkboxes
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function getDropdownOptions(data) {
         const dropdown = document.getElementById('data-type-dropdown');
-        const dataTypes = [...new Set(data.map(item => item.data_type))];
+        const dataTypes = [...new Set(data.map(item => item.data_type.trim()))];
         dropdown.innerHTML = ''; // Clear existing options
 
         // Add 'All Data Types' option
@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
             option.textContent = type;
             dropdown.appendChild(option);
         });
+
     }
 
     function applyFiltersAndRenderTable() {

@@ -3,7 +3,11 @@
     --color-cohort-b: #b18fbb; /* Purple */
     --color-cohort-c: #7193ab; /* Blue */
     --color-cohort-d: #d4a588; /* Orange */
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    --color-cohort-a-rgb: 134, 175, 126; /* Green */
+    --color-cohort-b-rgb: 177, 143, 187; /* Purple */
+    --color-cohort-c-rgb: 113, 147, 171; /* Blue */
+    --color-cohort-d-rgb: 212, 165, 136; /* Orange */
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 body {
@@ -19,12 +23,15 @@ body {
 }
 
 .filters {
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
+    margin-bottom: -15px;
+    padding-bottom: 10px;
+    padding-top: 5px;
     display: flex;
     flex-wrap: row;
     background-color: #f0efef;
     border-radius: 10px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
+    /*box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);*/
 }
 
 .filter {
@@ -34,7 +41,7 @@ body {
 }
 
 .top-label {
-    background-color: #c9c8c8;
+    
     border-radius: 5px;
     padding: 3px;
     margin-bottom: 10px;
@@ -46,7 +53,7 @@ body {
 
 .cohorts .checkbox-container {
     display: block;
-    margin-bottom: 5px; /
+    margin-bottom: 5px; 
 }
 
 .cohorts .checkbox-container .checkbox-label {
@@ -60,14 +67,23 @@ body {
     vertical-align: middle;
 }
 
+.checkbox-container {
+    width: auto;
+}
+
+.cohorts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-template-rows: repeat(3, 1fr); /* 3 rows */
+}
 .table-wrapper {
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+    /*box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);*/
 }
 .data-table {
     width: 100%;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     border-collapse: separate; 
     border-spacing: 0;
 }
@@ -77,7 +93,7 @@ body {
 }
 
 .data-table th {
-    background-color: #c9c8c8; 
+    background-color:  #f0efef; 
 }
 
 .data-table th, 
@@ -89,14 +105,30 @@ body {
 
 .data-table td {
     padding: 10px;
+    font-size: 14px;
 }
 
 .data-table tr:nth-child(even) {
-    background-color: #e0e0e0; 
+    background-color: rgba(var(--color-cohort-a-rgb), 0.2); 
 }
 
 .data-table tr:nth-child(odd) {
     background-color: #f9f9f9;
 }
 
+#data-type-dropdown,
+#measure-search {
+    padding: 5px;
+    width: 200px;
+    border: none;
+    background-color: #f9f9f9;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
+}
 
+.checkbox-label {
+    font-size: 14px;
+}
+
+#data-type-filter {
+    padding-left: 6vw !important;
+}
